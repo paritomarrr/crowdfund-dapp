@@ -22,11 +22,19 @@ const Campaign = () => {
   const [donationAmount, setDonationAmount] = useState()
   const [imageString, setImageString] = useState('https:ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
   const [donation, setDonation] = useState()
-  const [fetchSigner, setFetchSigner] = useState(newSigner)
+
+
+
+  const provider = new ethers.providers.JsonRpcProvider('https://backend.buildbear.io/node/clever-williams-b356e4');
+  const jsonSigner = provider.getSigner()
+
+  const [fetchSigner, setFetchSigner] = useState(jsonSigner)
   
 
+
+
 const createCampaign = () => {
-  if (fetchSigner !== undefined) {
+  if (newSigner != undefined) {
     const contract = new ethers.Contract(
       newAddress,
        CampaignAbi.abi,
@@ -93,33 +101,11 @@ const storyUrlString = `https://ipfs.infura.io/ipfs/${storyData}`
      const storyIPFS = (fetch(storyUrlString).
       then(res => res.text())
       .then(data => setStory(data)))
-
-
-     
-
-      // console.log('IPFS', story)
-      // console.log((await contract.requiredAmount()).toString(), "req amt")
-      // console.log((await contract.donate({value: ethers.utils.parseEther("1")})), 'donate')
-
-    //   const getAllCampaigns = contract.filters.campaignCreated(null, null, newAddress);
-    //   const AllCampaigns = await contract.queryFilter(getAllCampaigns);
-    //   const AllData = AllCampaigns.map((e) => {
-    //   return {
-    //     title: e.args.title,
-    //     image: e.args.imgURI,
-    //     owner: e.args.owner,
-    //     timeStamp: parseInt(e.args.timestamp),
-    //     amount: ethers.utils.formatEther(e.args.requiredAmount),
-    //     address: e.args.campaignAddress
-    //   }
-    //   })  
-    //   setCampaignsData(AllData)
-    //   console.log('dashboard', campaignsData)
     }
     Request();
     }
  
-, [newSigner])
+, [])
     return (
         <>
        {newSigner !== undefined && <>
