@@ -22,7 +22,7 @@ const Campaign = () => {
   const [donationAmount, setDonationAmount] = useState()
   const [imageString, setImageString] = useState('https:ipfs.infura.io/ipfs/QmdikPXpXRZkrhMghXoDjy9cTnj9QNyTUm3fvpLCKKPAVu')
   const [donation, setDonation] = useState()
-
+const [fetchSigner, setFetchSigner] = useState()
 
 
  
@@ -30,14 +30,17 @@ const Campaign = () => {
 
 
 const createCampaign = () => {
-  if (newSigner != undefined) {
-
+  if (newSigner != undefined || null) {
+  //  const  address = "0x8ba1f109551bD432803012645Ac136ddd64DBA72"
+  //  const signer = new ethers.VoidSigner(address, new ethers.providers.JsonRpcProvider('https://backend.buildbear.io/node/clever-williams-b356e4'))
+  
     const contract = new ethers.Contract(
       newAddress,
        CampaignAbi.abi,
        newSigner
      );
      return contract
+    // return null
   } else {
     console.log("Not defined")
     return null;
